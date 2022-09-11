@@ -1,0 +1,100 @@
+<form [formGroup]="userForm" class="form">
+    <div class="form-group">
+        <label>Name</label>
+      <input type="text" class="form-control" formControlName="name" [(ngModel)]="user.name"  >
+      <span class="error-msg" *ngIf="userForm.controls['name'].hasError('required') &&
+                        (userForm.controls['name'].dirty ||
+                        userForm.controls['name'].touched) && formSubmitted">
+                             * User Name field is required
+                        </span>
+                        <span class="error-msg" *ngIf="userForm.controls['name'].errors?.['pattern']  &&
+                        (userForm.controls['name'].dirty ||
+                        userForm.controls['name'].touched)  && formSubmitted">
+                             * First Letter may be UpperCase
+                        </span>
+
+                        
+    </div>
+    <div class="form-group">
+        <label>PhoneNo</label>
+      <input type="text" class="form-control" [(ngModel)]="user.phno" formControlName="phno" >
+
+      <span *ngIf=" (userForm.controls['phno'].dirty || userForm.controls['phno'].touched)"
+    class="error-msg">
+
+  <span *ngIf="userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['required']">
+    * phno field is required.
+  </span>
+  <span *ngIf="userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['minlength']">
+    * PhoneNo must be at least 7 Digits.
+  </span>
+  <span *ngIf="userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['maxlength']">
+    * PhoneNo must be at max 10 Digits.
+  </span>
+</span>
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+      <input type="text" class="form-control" formControlName="email" [(ngModel)]="user.email" >
+      <span class="error-msg" *ngIf="userForm.controls['email'].hasError('required') &&
+      (userForm.controls['email'].dirty ||
+      userForm.controls['email'].touched) && formSubmitted">
+          * This field is required
+      </span>
+      <span class="error-msg" *ngIf="
+      (userForm.controls['email'].dirty ||
+      userForm.controls['email'].touched)&& userForm.controls['email'].errors?.['pattern']  && formSubmitted ">
+           * Enter valid Email
+      </span>
+    </div>
+    <div class="form-group">
+        <label>Nrc No</label>
+      <input type="text" class="form-control" formControlName="nrc" [(ngModel)]="user.nrc">
+      <span class="error-msg" *ngIf="userForm.controls['nrc'].hasError('required') &&
+      (userForm.controls['nrc'].dirty ||
+      userForm.controls['nrc'].touched && formSubmitted )">
+           * This field is required
+      </span>
+    </div>
+    <button type="submit" class="btn btn-success waves-effect waves-light mt-3" (click)="register()">
+      Submit
+    </button>
+  </form>
+
+  <div class="col-sm-12">
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="table-title text-center">
+                        No.
+                    </th>
+                    <th class="table-title act-width text-center">
+                        User Name
+                    </th>
+                    <th class="table-title act-width text-center">
+                        PhoneNo
+                    </th>
+                    <th class="table-title act-width text-center">
+                        Email
+                    </th>
+                    <th class="table-title act-width text-center">
+                        Nrc
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="currentUsers.length === 0">
+                    <td colspan="4">No available</td>
+                </tr>
+                <tr *ngFor="let user of currentUsers">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.phno }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.nrc }}</td>
+                </tr>
+            </tbody>
+        </table>
+    
+</div>
