@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder,FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { initUser, User } from '../user';
-import { cloneDeep } from "lodash";
+import { cloneDeep, findIndex } from "lodash";
 
 @Component({
   selector: 'app-register',
@@ -55,10 +55,18 @@ export class RegisterComponent implements OnInit {
 
  
       this.currentUsers.push({ ...this.user, id: String(this.currentUsers.length + 1) })
-     
-      this.user = cloneDeep(initUser);
+      localStorage.setItem('userList', JSON.stringify(this.currentUsers));
+    this.user = cloneDeep(initUser);
+
       this.markFormUntouched(this.userForm);
   }
+
+  deleteUser(id:any) {
+    let index = this.currentUsers.findIndex(username => username.id === id);
+    this.currentUsers.splice(index, 1);
+  }
+
+}
 
   //firstLetterUppercase(): ValidatorFn {
   //  return (control: AbstractControl): {[key: string]: any} | null => {
@@ -66,7 +74,7 @@ export class RegisterComponent implements OnInit {
   //    return /^([A-Z][a-z]*((\s[A-Za-z])?[a-z]*)*)$/.test(control.value) ? null : { firstLetterUpperCaseInvalid: true };
   //  };
   //}
-  //
+  
   //phoneNoValidation():ValidatorFn{
   // 
   //  return (control: AbstractControl) : {[key: string]: any} | null => {
@@ -76,6 +84,5 @@ export class RegisterComponent implements OnInit {
   // 
   //}
   
-  
-}
+
 

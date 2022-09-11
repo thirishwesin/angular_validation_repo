@@ -3,36 +3,29 @@
 <form [formGroup]="userForm" style="padding:0 100px;">
     <div class="form-group">
         <label>Name</label>
-      <input type="text" class="form-control" formControlName="name" [(ngModel)]="user.name"  >
-    <span *ngIf=" (userForm.controls['name'].dirty || userForm.controls['name'].touched)"
-        class="error-msg">
-      <span *ngIf="userForm.controls['name'].invalid && userForm.controls['name'].errors?.['required']">
+      <input type="text" class="form-control" formControlName="name" [(ngModel)]="user.name" >
+      <span *ngIf="(userForm.controls['name'].dirty || userForm.controls['name'].touched) && userForm.controls['name'].invalid && userForm.controls['name'].errors?.['required']"  class="error-msg">
         * User Name field is required.
       </span>
-      <span *ngIf="userForm.controls['name'].invalid && userForm.controls['name'].errors?.['pattern']">
+      <span *ngIf="(userForm.controls['name'].dirty || userForm.controls['name'].touched) && userForm.controls['name'].invalid && userForm.controls['name'].errors?.['pattern']"  class="error-msg">
       * First Letter may be UpperCase
       </span>
-    </span>
-
-                        
+                       
     </div>
     <div class="form-group">
         <label>PhoneNo</label>
-      <input type="text" class="form-control" [(ngModel)]="user.phno" formControlName="phno" >
+        <input type="text" class="form-control" [(ngModel)]="user.phno" formControlName="phno" >
 
-      <span *ngIf=" (userForm.controls['phno'].dirty || userForm.controls['phno'].touched)"
-        class="error-msg">
-
-      <span *ngIf="userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['required']">
-        * phno field is required.
-      </span>
-      <span *ngIf="userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['minlength']">
-        * PhoneNo must be at least 7 Digits.
-      </span>
-      <span *ngIf="userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['maxlength']">
-        * PhoneNo must be at max 10 Digits.
-      </span>
-    </span>
+          <span *ngIf="(userForm.controls['phno'].dirty || userForm.controls['phno'].touched) && userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['required']"  class="error-msg">
+            * phno field is required.
+          </span>
+          <span *ngIf="(userForm.controls['phno'].dirty || userForm.controls['phno'].touched) && userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['minlength']"  class="error-msg">
+            * PhoneNo must be at least 7 Digits.
+          </span>
+          <span *ngIf="(userForm.controls['phno'].dirty || userForm.controls['phno'].touched) && userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['maxlength']"  class="error-msg">
+            * PhoneNo must be at max 10 Digits.
+          </span>
+        
     </div>
     <div class="form-group">
         <label>Email</label>
@@ -82,18 +75,24 @@
                     <th class="table-title act-width text-center">
                         Nrc
                     </th>
+                    <th class="table-title act-width text-center">
+                      Action
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngIf="currentUsers.length === 0">
                     <td colspan="4">No available</td>
                 </tr>
-                <tr *ngFor="let user of currentUsers">
-                    <td>{{ user.id }}</td>
+                <tr *ngFor="let user of currentUsers;let i=index">
+                    <td>{{ i+1 }}</td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.phno }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.nrc }}</td>
+                    <td>
+                      <button class="btn btn-info" (click)="deleteUser(user.id)">Delete</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
