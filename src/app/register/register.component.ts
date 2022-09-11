@@ -22,9 +22,9 @@ export class RegisterComponent implements OnInit {
 
     this.userForm= this.fb.group({
 
-      name: ['', [Validators.required,Validators.pattern("/^([A-Z][a-z]*((\s[A-Za-z])?[a-z]*)*)$/")]],
-      phno:['', [Validators.required,Validators.pattern(" /^[0-9]+$/"),Validators.minLength(7),Validators.maxLength(10)]],
-      email: ['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      name: ['', [Validators.required,Validators.pattern("[A-Z].*$")]],
+      phno:['', [Validators.required,Validators.pattern("[0-9]+$"),Validators.minLength(7),Validators.maxLength(10)]],
+      email: ['',[Validators.required,Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       nrc:['', [Validators.required]]
       
     })
@@ -60,21 +60,21 @@ export class RegisterComponent implements OnInit {
       this.markFormUntouched(this.userForm);
   }
 
-  firstLetterUppercase(): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      
-      return /^([A-Z][a-z]*((\s[A-Za-z])?[a-z]*)*)$/.test(control.value) ? null : { firstLetterUpperCaseInvalid: true };
-    };
-  }
-  
-  phoneNoValidation():ValidatorFn{
-   
-    return (control: AbstractControl) : {[key: string]: any} | null => {
-      
-    return  /^[0-9\-]{10}/.test(control.value) ? null : { phoneNumberInvalid: true };
-    }
-   
-  }
+  //firstLetterUppercase(): ValidatorFn {
+  //  return (control: AbstractControl): {[key: string]: any} | null => {
+  //    
+  //    return /^([A-Z][a-z]*((\s[A-Za-z])?[a-z]*)*)$/.test(control.value) ? null : { firstLetterUpperCaseInvalid: true };
+  //  };
+  //}
+  //
+  //phoneNoValidation():ValidatorFn{
+  // 
+  //  return (control: AbstractControl) : {[key: string]: any} | null => {
+  //    
+  //  return  /^[0-9\-]{10}/.test(control.value) ? null : { phoneNumberInvalid: true };
+  //  }
+  // 
+  //}
   
   
 }

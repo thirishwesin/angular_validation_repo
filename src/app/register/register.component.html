@@ -1,17 +1,18 @@
-<form [formGroup]="userForm" class="form">
+<div class="container">
+  <h2 class="h2">User Register Form</h2>
+<form [formGroup]="userForm" style="padding:0 100px;">
     <div class="form-group">
         <label>Name</label>
       <input type="text" class="form-control" formControlName="name" [(ngModel)]="user.name"  >
-      <span class="error-msg" *ngIf="userForm.controls['name'].hasError('required') &&
-                        (userForm.controls['name'].dirty ||
-                        userForm.controls['name'].touched) && formSubmitted">
-                             * User Name field is required
-                        </span>
-                        <span class="error-msg" *ngIf="userForm.controls['name'].errors?.['pattern']  &&
-                        (userForm.controls['name'].dirty ||
-                        userForm.controls['name'].touched)  && formSubmitted">
-                             * First Letter may be UpperCase
-                        </span>
+    <span *ngIf=" (userForm.controls['name'].dirty || userForm.controls['name'].touched)"
+        class="error-msg">
+      <span *ngIf="userForm.controls['name'].invalid && userForm.controls['name'].errors?.['required']">
+        * User Name field is required.
+      </span>
+      <span *ngIf="userForm.controls['name'].invalid && userForm.controls['name'].errors?.['pattern']">
+      * First Letter may be UpperCase
+      </span>
+    </span>
 
                         
     </div>
@@ -20,18 +21,18 @@
       <input type="text" class="form-control" [(ngModel)]="user.phno" formControlName="phno" >
 
       <span *ngIf=" (userForm.controls['phno'].dirty || userForm.controls['phno'].touched)"
-    class="error-msg">
+        class="error-msg">
 
-  <span *ngIf="userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['required']">
-    * phno field is required.
-  </span>
-  <span *ngIf="userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['minlength']">
-    * PhoneNo must be at least 7 Digits.
-  </span>
-  <span *ngIf="userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['maxlength']">
-    * PhoneNo must be at max 10 Digits.
-  </span>
-</span>
+      <span *ngIf="userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['required']">
+        * phno field is required.
+      </span>
+      <span *ngIf="userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['minlength']">
+        * PhoneNo must be at least 7 Digits.
+      </span>
+      <span *ngIf="userForm.controls['phno'].invalid && userForm.controls['phno'].errors?.['maxlength']">
+        * PhoneNo must be at max 10 Digits.
+      </span>
+    </span>
     </div>
     <div class="form-group">
         <label>Email</label>
@@ -39,7 +40,7 @@
       <span class="error-msg" *ngIf="userForm.controls['email'].hasError('required') &&
       (userForm.controls['email'].dirty ||
       userForm.controls['email'].touched) && formSubmitted">
-          * This field is required
+          * Email field is required
       </span>
       <span class="error-msg" *ngIf="
       (userForm.controls['email'].dirty ||
@@ -53,7 +54,7 @@
       <span class="error-msg" *ngIf="userForm.controls['nrc'].hasError('required') &&
       (userForm.controls['nrc'].dirty ||
       userForm.controls['nrc'].touched && formSubmitted )">
-           * This field is required
+           * NrcNo field is required
       </span>
     </div>
     <button type="submit" class="btn btn-success waves-effect waves-light mt-3" (click)="register()">
@@ -63,7 +64,7 @@
 
   <div class="col-sm-12">
     
-        <table class="table table-striped">
+        <table class="table" style="margin:50px;">
             <thead>
                 <tr>
                     <th class="table-title text-center">
@@ -97,4 +98,5 @@
             </tbody>
         </table>
     
+</div>
 </div>
